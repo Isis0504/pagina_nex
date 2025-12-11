@@ -15,12 +15,12 @@
   --behind-glow-color: rgba(125, 190, 255, 0.67);
   --behind-glow-size: 25%;
   --inner-gradient: none;
-  --sunpillar-1: hsl(2, 100%, 73%);
-  --sunpillar-2: hsl(53, 100%, 69%);
-  --sunpillar-3: hsl(93, 100%, 69%);
-  --sunpillar-4: hsl(176, 100%, 76%);
-  --sunpillar-5: hsl(228, 100%, 74%);
-  --sunpillar-6: hsl(283, 100%, 73%);
+  --sunpillar-1: hsl(270, 60%, 65%);
+  --sunpillar-2: hsl(265, 60%, 60%);
+  --sunpillar-3: hsl(260, 70%, 72%);
+  --sunpillar-4: hsl(280, 50%, 68%);
+  --sunpillar-5: hsl(290, 60%, 70%);
+  --sunpillar-6: hsl(300, 65%, 74%);
   --sunpillar-clr-1: var(--sunpillar-1);
   --sunpillar-clr-2: var(--sunpillar-2);
   --sunpillar-clr-3: var(--sunpillar-3);
@@ -48,7 +48,7 @@
     transparent var(--behind-glow-size)
   );
   filter: blur(50px) saturate(1.1);
-  opacity: calc(0.8 * var(--card-opacity));
+  opacity: calc(0.05 * var(--card-opacity));
   transition: opacity 200ms ease;
 }
 
@@ -64,11 +64,14 @@
   aspect-ratio: 0.718;
   border-radius: var(--card-radius);
   position: relative;
+  border: 1px solid transparent;
   background-blend-mode: color-dodge, normal, normal, normal;
   animation: glow-bg 12s linear infinite;
   box-shadow: rgba(0, 0, 0, 0.8) calc((var(--pointer-from-left) * 10px) - 3px)
     calc((var(--pointer-from-top) * 20px) - 6px) 20px -5px;
   transition: transform 1s ease;
+  transition-property: transform, box-shadow, border-color;
+  transition-duration: 300ms, 300ms, 300ms;
   transform: translateZ(0) rotateX(0deg) rotateY(0deg);
   background: rgba(0, 0, 0, 0.9);
   backface-visibility: hidden;
@@ -78,7 +81,45 @@
 .pc-card:hover,
 .pc-card.active {
   transition: none;
-  transform: translateZ(0) rotateX(var(--rotate-y)) rotateY(var(--rotate-x));
+  transform: translateZ(0) rotateX(calc(var(--rotate-y) * 0.3)) rotateY(calc(var(--rotate-x) * 0.3));
+}
+
+/* animated purple border/glow */
+.pc-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  border: 1px solid transparent;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  transform: scale(1);
+  transition: opacity 220ms ease, transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  opacity: 0;
+}
+
+.pc-card:hover::before,
+.pc-card.active::before {
+  opacity: 1;
+  /* visible purple border */
+  border-color: rgba(155,120,255,1);
+  border-width: 3px;
+  transform: scale(1.06);
+  /* much stronger outer glow + halo */
+  box-shadow: 0 28px 100px rgba(155,120,255,0.48),
+              0 12px 60px rgba(155,120,255,0.38),
+              0 0 160px rgba(155,120,255,0.60);
+}
+
+.pc-card:hover {
+  box-shadow: 0 48px 140px rgba(155,120,255,0.30), 0 18px 80px rgba(0,0,0,0.75);
+}
+
+/* intensify behind glow when wrapper is hovered */
+.pc-card-wrapper:hover .pc-behind {
+  opacity: calc(0.35 * var(--card-opacity));
+  transition: opacity 220ms ease;
 }
 
 .pc-card-shell.entering .pc-card {
@@ -97,14 +138,6 @@
   pointer-events: none;
 }
 
-.pc-inside {
-  inset: 0;
-  position: absolute;
-  background-image: var(--inner-gradient);
-  background-color: rgba(0, 0, 0, 0.9);
-  transform: none;
-}
-
 .pc-shine {
   mask-image: var(--icon);
   mask-mode: luminance;
@@ -112,10 +145,10 @@
   mask-size: 150%;
   mask-position: top calc(200% - (var(--background-y) * 5)) left calc(100% - var(--background-x));
   transition: filter 0.8s ease;
-  filter: brightness(0.66) contrast(1.33) saturate(0.33) opacity(0.5);
+  filter: brightness(0.35) contrast(0.75) saturate(0.08) opacity(0.12);
   animation: holo-bg 18s linear infinite;
   animation-play-state: running;
-  mix-blend-mode: color-dodge;
+  mix-blend-mode: multiply;
 }
 
 .pc-shine,
@@ -178,8 +211,8 @@
 
 .pc-card:hover .pc-shine,
 .pc-card.active .pc-shine {
-  filter: brightness(0.85) contrast(1.5) saturate(0.5);
-  animation-play-state: paused;
+  filter: brightness(0.5) contrast(0.7) saturate(0.05);
+  animation-play-state: running;
 }
 
 .pc-card:hover .pc-shine::before,
@@ -243,10 +276,11 @@
 }
 
 .pc-avatar-content {
-  mix-blend-mode: luminosity;
+  mix-blend-mode: normal;
   overflow: visible;
   transform: translateZ(2);
   backface-visibility: hidden;
+  z-index: 6;
 }
 
 .pc-avatar-content .avatar {
@@ -260,6 +294,10 @@
   backface-visibility: hidden;
   will-change: transform;
   transition: transform 120ms ease-out;
+}
+
+.pc-avatar-content .avatar {
+  filter: none;
 }
 
 .pc-avatar-content::before {
@@ -398,6 +436,7 @@
   top: 3em;
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
 
 .pc-details h3 {
@@ -415,7 +454,7 @@
 .pc-details p {
   font-weight: 600;
   position: relative;
-  top: -12px;
+  top: -8px;
   white-space: nowrap;
   font-size: 16px;
   margin: 0 auto;
@@ -425,6 +464,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
+  line-height: 1.8;
 }
 
 @keyframes glow-bg {

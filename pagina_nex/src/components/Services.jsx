@@ -3,7 +3,9 @@ import MagicBento from "./MagicBento";
 export function Services() {
   return (
     <section className="py-24 text-white bg-black/90">
-      <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">Servicios</h2>
+      <h2 className="font-bold text-center mb-12" style={{ fontSize: '3.25rem', lineHeight: 1.05 }}>
+        Servicios
+      </h2>
 
       <div className="px-6">
         <MagicBento

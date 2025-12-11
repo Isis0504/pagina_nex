@@ -1,45 +1,48 @@
 import React from 'react';
 import ProfileCard from './ProfileCard';
+import './About.css';
 
 export function About() {
   return (
-    <section className="py-32 bg-black/95 text-white">
+    <section className="about-section pt-44 pb-32 bg-black/95 text-white">
       <h2 className="text-4xl md:text-5xl font-bold text-center mb-10">Sobre Nosotros</h2>
 
-      <p className="text-center text-lg text-white/70 max-w-2xl mx-auto mb-16">
+      <p className="text-center text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-20">
         Somos Nexis Web, un equipo que transforma ideas en soluciones digitales.
         Amamos crear, innovar y ayudar a negocios a crecer con tecnología real.
       </p>
 
-      <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 w-full">
+      <div className="flex flex-wrap items-center justify-center gap-20 md:gap-32 w-full">
         <ProfileCard
-          name="Isis Sánchez"
-          title="Desarrolladora Frontend"
-          handle="isis.s"
+          className="mx-[0.5cm] w-64"
+          name="Isis Sanchez"
+          title="Desarrolladora"
+          handle="isshine_is"
           status="Online"
           contactText="Instagram"
-          avatarUrl="https://i.pravatar.cc/300?u=isis"
+          avatarUrl="https://i.imgur.com/KDzd0BA.jpeg"
           showUserInfo={true}
           enableTilt={true}
           enableMobileTilt={false}
           socialLinks={[
-            { platform: 'instagram', url: 'https://instagram.com/isis' },
-            { platform: 'github', url: 'https://github.com/isis' }
+            { platform: 'instagram', url: 'https://www.instagram.com/isshine_is/' },
+            { platform: 'github', url: 'https://github.com/Isis0504' }
           ]}
         />
 
         <ProfileCard
-          name="Compañero"
-          title="Desarrollador Fullstack"
-          handle="compa"
+          className="mx-[0.5cm] w-64"
+          name="Nicolas Rodriguez"
+          title="Desarrollador"
+          handle="millos_daviid"
           status="Online"
           contactText="Instagram"
-          avatarUrl="https://i.pravatar.cc/300?u=compa"
+          avatarUrl="https://i.imgur.com/LxPWjbH.png"
           showUserInfo={true}
           enableTilt={true}
           enableMobileTilt={false}
           socialLinks={[
-            { platform: 'instagram', url: 'https://instagram.com/compa' },
+            { platform: 'instagram', url: 'https://www.instagram.com/millos_daviid/' },
             { platform: 'github', url: 'https://github.com/compa' }
           ]}
         />

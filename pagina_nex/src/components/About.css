@@ -1,0 +1,44 @@
+.about-section {
+  padding-top: 8rem; /* separación superior grande (ajustable) */
+  padding-bottom: 8rem;
+  text-align: center;
+}
+
+.about-section h2 {
+  font-size: 3.25rem; /* 52px */
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+}
+
+.about-section p {
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.9;
+  max-width: 48rem;
+  margin: 0 auto 3rem;
+  color: rgba(255,255,255,0.78);
+}
+
+@media (max-width: 1024px) {
+  .about-section {
+    padding-top: 12rem;
+  }
+  .about-section h2 {
+    font-size: 2.5rem;
+  }
+  .about-section p {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-section {
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+  }
+  .about-section h2 {
+    font-size: 2rem;
+  }
+  .about-section p {
+    font-size: 1rem;
+  }
+}
